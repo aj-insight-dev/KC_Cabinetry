@@ -1,38 +1,29 @@
-# KC Cabinetry - Conscious Carpentry LLC
+# kc-console: the KC Cabinetry console page
 
-A static marketing site for KC Cabinetry, a custom finish cabinetry business serving Overland Park, Mission Hills, and greater Kansas City.
+This is the KC Cabinetry site in the "console" layout: one screen at a time, clicked through and never scrolled. It's delivered as **one Squarespace Code Block**. The structure and behaviour follow `bayou-site/docs/CONSOLE_PATTERN_BRIEF.md`; the brand is Jim's (Georgia/system fonts, walnut, charcoal and oak colours, his emblem, photos and copy). Everything is scoped under `.kc` / `#kc`.
 
-## Pages
-| File | Purpose |
-|------|---------|
-| `index.html` | Restoration showcase, hero reel, smart storage, project gallery, renovation detail strip, and lookbook capture |
-| `transitional.html` | Transitional style landing page with mixed materials, hidden storage, gallery, and lookbook capture |
-| `calculator.html` | 5-step project cost estimator with lead capture |
-| `assessment.html` | Refacing vs. replacing quiz with lead capture |
-| `privacy.html` | Basic privacy policy |
-| `terms.html` | Basic website terms |
+## Commands
+- `npm run build` builds the files listed under Output.
+- `npm test` opens every screen, tab and form step at 8 window sizes and writes `test-results/fit-report.md` and screenshots. It uses the installed Microsoft Edge.
+- `node tests/extra-check.mjs "<full path>/dist"` checks three things: it stays in the page inside an iframe (the editor), takes over the full window at the top level, and works without JavaScript.
 
-## Enhancements Added
-- Supplied KC Cabinetry logo added to `assets/images/brand/logo-cabinetry.png`.
-- Renovation detail photos added to `assets/images/renovation/` and surfaced on the homepage.
-- Footer policy links now point to real local pages.
-- Mobile visitors get a fixed tap-to-call button.
-- Forms now save the last 50 submissions to browser `localStorage` as `kcCabinetryLeads` while still showing the front-end confirmation.
-- Accessibility polish: skip link, focus states, mobile nav `aria-expanded`, improved lightbox alt text, Escape handling, and scroll locking.
-- SEO basics: theme color, Open Graph image, Twitter card, and `robots.txt`.
+## Source
+| File | What it is |
+|---|---|
+| `src/config.mjs` | Image host address, phone, email, credit link, and the craft **videos** list (empty means no Videos screen) |
+| `src/markup.mjs` | All markup |
+| `src/kc.css` | Layout, height tiers and components |
+| `src/kc.js` | Screens, tabs, sliders, photo viewer, SAMPLE estimator, assessment, 3-step form (opens an email), copy buttons, click-to-load YouTube |
+| `src/REPO_README.md` | Template for the KC_Cabinetry repo's README |
+| `media/` | The images (copied from `squarespace-live/assets/`) |
+| `GO_LIVE.md` | Step-by-step go-live instructions |
 
-## Run Locally
-Open `index.html` directly in a browser, or serve the folder:
+## Output (`dist/`)
+- `kc-console-codeblock.html`: paste into the Code Block.
+- `preview.html` / `preview-videos.html`: local previews. The second one is a test with the Videos screen switched on.
+- `repo/`: upload these files to github.com/aj-insight-dev/KC_Cabinetry.
 
-```bash
-python -m http.server 8000
-```
-
-Then visit `http://localhost:8000`.
-
-## Still Needed Before Launch
-1. Connect forms to a real CRM or email endpoint such as Formspree, Netlify Forms, HubSpot, Mailchimp, or a small backend.
-2. Replace the CSS hero slideshow with the final 15-second transformation video when available.
-3. Swap any thumbnail gallery images for high-resolution originals as you collect them.
-4. Add the official BBB seal only if you have approval and the correct brand asset.
-5. Add the final production domain to analytics, Search Console, and any sitemap you generate.
+## Decisions
+- **The form opens the visitor's own email app** (option C). There's no back end and nothing is stored. Moving to the Cloudflare Worker later (option A) means changing the `submit` handler in `kc.js`.
+- **Prices** are labelled SAMPLE and blurred until revealed. They're illustration only.
+- **Left off for now:** BBB and "since 2009" (waiting for Jim to confirm), and Conscious Carpentry.
